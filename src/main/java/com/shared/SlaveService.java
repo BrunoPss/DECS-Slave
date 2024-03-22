@@ -1,0 +1,17 @@
+package com.shared;
+
+import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public interface SlaveService extends Remote {
+    boolean checkStatus() throws RemoteException;
+
+    // Transfer Problem Files
+    // <jobFiles>
+    // .conf file
+    // .params files
+    boolean setupProblemEnvironment(ArrayList<JobFile> jobFiles) throws RemoteException;
+}
