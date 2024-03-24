@@ -1,0 +1,2 @@
+parent.0 = slave.params
+parent.1 = TBoxDist.params

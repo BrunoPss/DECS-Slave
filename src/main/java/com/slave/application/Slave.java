@@ -4,6 +4,7 @@ import com.shared.SlaveInfo;
 import com.shared.SlaveService;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.*;
