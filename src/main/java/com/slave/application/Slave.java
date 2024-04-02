@@ -24,15 +24,15 @@ public class Slave extends SlaveServiceImpl {
         String address = args[0];
         int port = Integer.parseInt(args[1]);
 
-        String serverIP = "192.168.1.114";
+        String serverIP = "192.168.56.1";
         int serverPort = 46000;
 
         SlaveInfo slaveInfo = new SlaveInfo("DECS-SLAVE@"+address+"@"+port, address, port);
 
         try {
-            System.setProperty("java.rmi.server.hostname","192.168.1.114");
+            System.setProperty("java.rmi.server.hostname","192.168.56.1");
             LocateRegistry.createRegistry(port);
-            System.out.println("[STATUS] -> RMI successfully created!");
+            System.err.println("[STATUS] -> RMI successfully created!");
         } catch (RemoteException e) {
             System.out.println("[STATUS] -> RMI already started!");
         }
@@ -40,7 +40,7 @@ public class Slave extends SlaveServiceImpl {
         try {
             SlaveService slaveService = new SlaveServiceImpl();
             Naming.rebind(slaveInfo.getId(), slaveService);
-            System.err.println("Slave Ready");
+            System.err.println("[STATUS] -> RMI Bind Success");
         } catch (RemoteException e) {
             System.out.println("Remote Exception");
             e.printStackTrace();
@@ -60,6 +60,7 @@ public class Slave extends SlaveServiceImpl {
 
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, ServerAddress, serverPort);
             socket.send(packet);
+            System.err.println("[STATUS] -> DGRAM Sent");
         } catch (SocketException e) {
             e.printStackTrace();
             System.out.println("Socket Exception");

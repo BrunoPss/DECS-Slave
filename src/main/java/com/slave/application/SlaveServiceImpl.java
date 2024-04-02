@@ -78,13 +78,8 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
 
     @Override
     public boolean startInference(String problemCode) {
-        File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + problemCode + "/" + problemCode + "Slave.params");
-        System.out.println(paramsFile);
-        try {
-            ec.eval.Slave.main(new String[]{"-file", paramsFile.getCanonicalPath()});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        EvolutionEngine evolutionEngine = new EvolutionEngine(problemCode);
+        evolutionEngine.start();
         return true;
     }
 
