@@ -78,8 +78,15 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
 
     @Override
     public boolean startInference(String problemCode) {
+        System.out.println("Start Inference");
         EvolutionEngine evolutionEngine = new EvolutionEngine(problemCode);
         evolutionEngine.start();
+        return true;
+    }
+
+    @Override
+    public boolean stopInference() {
+        System.out.println("STOP INFERENCE");
         return true;
     }
 
