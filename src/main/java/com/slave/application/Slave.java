@@ -61,6 +61,8 @@ public class Slave extends SlaveServiceImpl {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, ServerAddress, serverPort);
             socket.send(packet);
             System.err.println("[STATUS] -> DGRAM Sent");
+
+            socket.close();
         } catch (SocketException e) {
             e.printStackTrace();
             System.out.println("Socket Exception");
