@@ -5,6 +5,7 @@ target/
 .idea/
 out
 *.iml
+src/main/resources/ECJ/stats
 
 ### Eclipse ###
 .apt_generated
