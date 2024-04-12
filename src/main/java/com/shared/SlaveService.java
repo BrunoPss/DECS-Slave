@@ -13,7 +13,7 @@ public interface SlaveService extends Remote {
     // <jobFiles>
     // .conf file
     // .params files
-    boolean setupProblemEnvironment(ArrayList<JobFile> jobFiles, String problemCode) throws RemoteException;
+    boolean setupProblemEnvironment(ArrayList<JobFile> jobFiles, String problemCode, String distribution) throws RemoteException;
 
     // Start Inference
     boolean startInference(String problemCode) throws RemoteException;

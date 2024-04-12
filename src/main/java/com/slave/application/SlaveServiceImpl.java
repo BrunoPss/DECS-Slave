@@ -15,7 +15,8 @@ import java.util.HashMap;
 
 public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveService {
     //Internal Data
-
+    private String distribution;
+    private String problemCode;
 
     //Constructor
     public SlaveServiceImpl() throws RemoteException {
@@ -38,7 +39,10 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     }
 
     @Override
-    public boolean setupProblemEnvironment(ArrayList<JobFile> jobFiles, String problemCode) {
+    public boolean setupProblemEnvironment(ArrayList<JobFile> jobFiles, String problemCode, String distribution) {
+        this.problemCode = problemCode;
+        this.distribution = distribution;
+
         // Create Problem Folder
         String problemDir = FilePathConstants.PROBLEM_PARAMS_FOLDER + problemCode;
         File problemFolder = new File(problemDir);
@@ -58,19 +62,24 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
             }
         }
 
-        // Create Slave params Files
-        String slaveParamsText = "parent.0 = slave.params" + System.lineSeparator() +
-                                 "parent.1 = " + problemCode + ".params";
-        File slaveParamsFile = new File(problemDir + "/" + problemCode + "Slave.params");
-        FileWriter fWriter;
-        try {
-            fWriter = new FileWriter(slaveParamsFile);
-            fWriter.write(slaveParamsText);
-            fWriter.close();
-            System.out.println("Successfully wrote the slave file");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("IO Exception");
+        if (distribution.equals("DIST_EVAL")) {
+            // Create Slave params Files
+            String slaveParamsText = "parent.0 = slave.params" + System.lineSeparator() +
+                    "parent.1 = " + problemCode + ".params";
+            File slaveParamsFile = new File(problemDir + "/" + problemCode + "Slave.params");
+            FileWriter fWriter;
+            try {
+                fWriter = new FileWriter(slaveParamsFile);
+                fWriter.write(slaveParamsText);
+                fWriter.close();
+                System.out.println("Successfully wrote the slave file");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("IO Exception");
+            }
+        }
+        else if (distribution.equals("ISLANDS")) {
+
         }
 
         return true;
@@ -79,7 +88,8 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     @Override
     public boolean startInference(String problemCode) {
         System.out.println("Start Inference");
-        EvolutionEngine evolutionEngine = new EvolutionEngine(problemCode);
+        System.out.println("PROBLEM CODE: " + problemCode);
+        EvolutionEngine evolutionEngine = new EvolutionEngine(this.problemCode, distribution, problemCode);
         evolutionEngine.start();
         return true;
     }
