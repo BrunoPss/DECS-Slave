@@ -3,6 +3,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .idea/
+out
+*.iml
 
 ### Eclipse ###
 .apt_generated

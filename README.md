@@ -1,2 +1,2 @@
-# DECS-Slave
+# DECS-com.slave.application.Slave
  
