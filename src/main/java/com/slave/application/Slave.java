@@ -27,10 +27,10 @@ public class Slave extends SlaveServiceImpl {
         String serverIP = "192.168.56.1";
         int serverPort = 46000;
 
-        SlaveInfo slaveInfo = new SlaveInfo("DECS-SLAVE@"+address+"@"+port, address, port);
+        SlaveInfo slaveInfo = new SlaveInfo("DECS-SLAVE", address, port);
 
         try {
-            System.setProperty("java.rmi.server.hostname","192.168.56.1");
+            System.setProperty("java.rmi.server.hostname", address);
             LocateRegistry.createRegistry(port);
             System.err.println("[STATUS] -> RMI successfully created!");
         } catch (RemoteException e) {
@@ -39,7 +39,7 @@ public class Slave extends SlaveServiceImpl {
 
         try {
             SlaveService slaveService = new SlaveServiceImpl();
-            Naming.rebind(slaveInfo.getId(), slaveService);
+            Naming.rebind("//" + slaveInfo.getAddress() + ":" + slaveInfo.getPort() + "/" + slaveInfo.getId(), slaveService);
             System.err.println("[STATUS] -> RMI Bind Success");
         } catch (RemoteException e) {
             System.out.println("Remote Exception");
