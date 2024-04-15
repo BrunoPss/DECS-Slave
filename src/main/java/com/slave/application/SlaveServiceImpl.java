@@ -2,16 +2,16 @@ package com.slave.application;
 
 import com.shared.JobFile;
 import com.shared.SlaveService;
+import com.slave.application.engines.EvolutionEngine;
+import com.slave.application.utils.constants.FilePathConstants;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveService {
     //Internal Data

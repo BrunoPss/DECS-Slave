@@ -1,10 +1,8 @@
 package com.shared;
 
-import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public interface SlaveService extends Remote {
     boolean checkStatus() throws RemoteException;
