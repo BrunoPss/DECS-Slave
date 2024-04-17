@@ -1,4 +1,4 @@
-package com.slave.application;
+package com.slave.application.utils.constants;
 
 public final class FilePathConstants {
     //Internal Data
