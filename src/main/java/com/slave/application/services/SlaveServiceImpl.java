@@ -1,4 +1,4 @@
-package com.slave.application;
+package com.slave.application.services;
 
 import com.shared.JobFile;
 import com.shared.SlaveService;
