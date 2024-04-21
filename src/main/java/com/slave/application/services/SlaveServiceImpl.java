@@ -1,7 +1,8 @@
-package com.slave.application;
+package com.slave.application.services;
 
 import com.shared.JobFile;
 import com.shared.SlaveService;
+import com.shared.SystemInformation;
 import com.slave.application.engines.EvolutionEngine;
 import com.slave.application.utils.constants.FilePathConstants;
 
@@ -9,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     //Internal Data
     private String distribution;
     private String problemCode;
+    private OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
 
     //Constructor
     public SlaveServiceImpl() throws RemoteException {
@@ -36,6 +40,17 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     @Override
     public boolean checkStatus() {
         return true;
+    }
+
+    @Override
+    public SystemInformation getSystemInformation() {
+        return new SystemInformation(
+                System.getProperty("user.name"),
+                operatingSystemMXBean.getName(),
+                operatingSystemMXBean.getVersion(),
+                operatingSystemMXBean.getArch(),
+                operatingSystemMXBean.getAvailableProcessors()
+        );
     }
 
     @Override
