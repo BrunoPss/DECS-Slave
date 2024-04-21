@@ -29,12 +29,13 @@ public class SlaveServiceManager {
 
 
     //Methods
-    public void startService(String slaveAddress, int slavePort, String coordinatorAddress, int coordinatorPort) {
+    public void startService(String slaveAddress, int slavePort, String slaveID, String coordinatorAddress, int coordinatorPort) {
         this.coordinatorAddress = coordinatorAddress;
         this.coordinatorPort = coordinatorPort;
 
         // Create Slave Info Object
-        slaveInfo = new SlaveInfo("DECS-SLAVE", slaveAddress, slavePort);
+        System.out.println("FUCK: " + slaveID + " " + slaveAddress + " " + slavePort);
+        slaveInfo = new SlaveInfo(slaveID, slaveAddress, slavePort);
 
         // Create RMI Registry
         createRegistry();
@@ -50,6 +51,7 @@ public class SlaveServiceManager {
     //Internal Functions
     private void createRegistry() {
         try {
+            System.out.println(slaveInfo.getAddress() + " " + slaveInfo.getPort());
             System.setProperty("java.rmi.server.hostname", slaveInfo.getAddress());
             LocateRegistry.createRegistry(slaveInfo.getPort());
             System.err.println("[STATUS] -> RMI successfully created!");

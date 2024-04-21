@@ -3,6 +3,7 @@ package com.slave.application;
 import com.shared.SlaveInfo;
 import com.shared.SlaveService;
 import com.slave.application.gui.TerminalGUI;
+import com.slave.application.gui.TextContent;
 import com.slave.application.services.SlaveServiceImpl;
 import com.slave.application.services.SlaveServiceManager;
 import ec.app.majority.func.E;
@@ -124,7 +125,7 @@ public class Slave extends SlaveServiceImpl {
 
     //Internal Functions
     private void startService(String localAddress, int localPort, String coordinatorAddress, int coordinatorPort) {
-        slaveServiceManager.startService(localAddress, localPort, coordinatorAddress, coordinatorPort);
+        slaveServiceManager.startService(localAddress, localPort, TextContent.SLAVE_DEFAULT_ID, coordinatorAddress, coordinatorPort);
     }
     private void startGUI() {
         // Show Initial GUI Menu
