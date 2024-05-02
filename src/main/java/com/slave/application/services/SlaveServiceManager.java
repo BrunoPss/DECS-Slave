@@ -34,7 +34,6 @@ public class SlaveServiceManager {
         this.coordinatorPort = coordinatorPort;
 
         // Create Slave Info Object
-        System.out.println("FUCK: " + slaveID + " " + slaveAddress + " " + slavePort);
         slaveInfo = new SlaveInfo(slaveID, slaveAddress, slavePort);
 
         // Create RMI Registry
