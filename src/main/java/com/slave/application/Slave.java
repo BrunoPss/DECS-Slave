@@ -1,20 +1,11 @@
 package com.slave.application;
 
-import com.shared.SlaveInfo;
-import com.shared.SlaveService;
 import com.slave.application.gui.TerminalGUI;
 import com.slave.application.gui.TextContent;
 import com.slave.application.services.SlaveServiceImpl;
 import com.slave.application.services.SlaveServiceManager;
-import ec.app.majority.func.E;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.*;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 
 public class Slave extends SlaveServiceImpl {
     //Internal Data
