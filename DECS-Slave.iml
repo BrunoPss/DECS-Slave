@@ -17,5 +17,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="ecj-27_V3" level="project" />
   </component>
 </module>
