@@ -21,10 +21,11 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     private String distribution;
     private String problemCode;
     private OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
+    private String slaveAddress;
 
     //Constructor
-    public SlaveServiceImpl() throws RemoteException {
-
+    public SlaveServiceImpl(String slaveAddress) throws RemoteException {
+        this.slaveAddress = slaveAddress;
     }
 
     //Get Methods
@@ -104,7 +105,7 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     public boolean startInference(String problemCode) {
         System.out.println("Start Inference");
         System.out.println("PROBLEM CODE: " + problemCode);
-        EvolutionEngine evolutionEngine = new EvolutionEngine(this.problemCode, distribution, problemCode);
+        EvolutionEngine evolutionEngine = new EvolutionEngine(this.problemCode, distribution, problemCode, slaveAddress);
         evolutionEngine.start();
         return true;
     }

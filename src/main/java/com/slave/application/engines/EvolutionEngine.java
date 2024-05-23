@@ -15,13 +15,15 @@ public class EvolutionEngine extends Thread {
     private String problemCode;
     private String islandCode;
     private String distribution;
+    private String slaveAddress;
 
 
     //Constructor
-    public EvolutionEngine(String problemCode, String distribution, String islandCode) {
+    public EvolutionEngine(String problemCode, String distribution, String islandCode, String slaveAddress) {
         this.problemCode = problemCode;
         this.distribution = distribution;
         this.islandCode = islandCode;
+        this.slaveAddress = slaveAddress;
     }
 
     //Get Methods
@@ -67,6 +69,11 @@ public class EvolutionEngine extends Thread {
             // Create Parameter Database
             ParameterDatabase paramDatabase = new ParameterDatabase(paramsFile,
                     new String[]{"-file", paramsFile.getCanonicalPath()});
+
+            // Manually setting the local IP address
+            // This was intentionally changed in ECJ source code
+            // The original implementation is problematic...
+            Evolve.myAddress = slaveAddress;
 
             // Build Output
             Output out = Evolve.buildOutput();

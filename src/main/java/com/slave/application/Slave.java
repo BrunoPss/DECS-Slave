@@ -13,14 +13,14 @@ public class Slave extends SlaveServiceImpl {
     private TerminalGUI terminalGUI;
 
     //Constructor
-    public Slave() throws RemoteException {
+    public Slave(String slaveAddress) throws RemoteException {
+        super(slaveAddress);
         slaveServiceManager = new SlaveServiceManager();
         terminalGUI = new TerminalGUI(slaveServiceManager);
     }
 
     public static void main(String[] args) throws RemoteException {
-        Slave slave = new Slave();
-
+        Slave slave = new Slave(args[0]);
         // There are two ways of starting the Slave
         // Direct -> Provide 4 arguments <local-address> <local-port> <coordinator-address> <coordinator-port>
         // Assisted -> Provide no arguments
@@ -43,63 +43,6 @@ public class Slave extends SlaveServiceImpl {
         else {
             slave.startGUI();
         }
-
-
-        /*
-        String address = args[0];
-        int port = Integer.parseInt(args[1]);
-
-        String serverIP = "192.168.56.1";
-        int serverPort = 46000;
-
-        SlaveInfo slaveInfo = new SlaveInfo("DECS-SLAVE", address, port);
-
-        try {
-            System.setProperty("java.rmi.server.hostname", address);
-            LocateRegistry.createRegistry(port);
-            System.err.println("[STATUS] -> RMI successfully created!");
-        } catch (RemoteException e) {
-            System.out.println("[STATUS] -> RMI already started!");
-        }
-
-        try {
-            SlaveService slaveService = new SlaveServiceImpl();
-            Naming.rebind("//" + slaveInfo.getAddress() + ":" + slaveInfo.getPort() + "/" + slaveInfo.getId(), slaveService);
-            System.err.println("[STATUS] -> RMI Bind Success");
-        } catch (RemoteException e) {
-            System.out.println("Remote Exception");
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            System.out.println("Malformed URL Exception");
-            e.printStackTrace();
-        }
-
-        try {
-            DatagramSocket socket = new DatagramSocket();
-            InetAddress ServerAddress = InetAddress.getByName(serverIP);
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            ObjectOutputStream obj = new ObjectOutputStream(out);
-            obj.writeObject(slaveInfo);
-            byte[] buffer = out.toByteArray();
-
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, ServerAddress, serverPort);
-            socket.send(packet);
-            System.err.println("[STATUS] -> DGRAM Sent");
-
-            socket.close();
-        } catch (SocketException e) {
-            e.printStackTrace();
-            System.out.println("Socket Exception");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println("Unknown Host Exception");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("IO Exception");
-        }
-
-         */
     }
 
     //Get Methods
