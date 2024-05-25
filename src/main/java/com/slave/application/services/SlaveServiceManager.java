@@ -58,6 +58,10 @@ public class SlaveServiceManager {
             System.err.println("[STATUS] -> RMI successfully created!");
         } catch (RemoteException e) {
             System.out.println("[STATUS] -> RMI already started!");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception at createRegistry");
+            e.printStackTrace();
         }
     }
 
@@ -71,6 +75,9 @@ public class SlaveServiceManager {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             System.out.println("[STATUS] -> Malformed URL Exception");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception at bindRemoteInterface");
             e.printStackTrace();
         }
     }
@@ -91,14 +98,17 @@ public class SlaveServiceManager {
 
             socket.close();
         } catch (SocketException e) {
-            e.printStackTrace();
             System.out.println("Socket Exception");
+            e.printStackTrace();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
             System.out.println("Unknown Host Exception");
-        } catch (IOException e) {
             e.printStackTrace();
+        } catch (IOException e) {
             System.out.println("IO Exception");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception at connect2Coordinator");
+            e.printStackTrace();
         }
     }
 }

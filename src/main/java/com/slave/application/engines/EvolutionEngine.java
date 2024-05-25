@@ -48,23 +48,27 @@ public class EvolutionEngine extends Thread {
 
     //Internal Functions
     private void distEvalSlaveInference() {
-        File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + this.problemCode + "/" + this.problemCode + "Slave.params");
-        System.out.println(paramsFile);
-
         try {
+            File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + this.problemCode + "/" + this.problemCode + "Slave.params");
+            System.out.println(paramsFile);
+
             System.out.println("Inference Started");
             ec.eval.Slave.main(new String[]{"-file", paramsFile.getCanonicalPath()});
             System.out.println("Inference Ended");
+        } catch (NullPointerException e) {
+            System.err.println("Null pointer exception at disEvalSlaveInference");
+            e.printStackTrace();
         } catch (Exception e) {
+            System.err.println("Exception at disEvalSlaveInference");
             e.printStackTrace();
         }
     }
 
     private void islandsSlaveInference() {
-        File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + this.problemCode + "/" + this.islandCode + ".params");
-        System.out.println(paramsFile);
-
         try {
+            File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + this.problemCode + "/" + this.islandCode + ".params");
+            System.out.println(paramsFile);
+
             System.out.println("Inference Started");
             // Create Parameter Database
             ParameterDatabase paramDatabase = new ParameterDatabase(paramsFile,
@@ -86,6 +90,9 @@ public class EvolutionEngine extends Thread {
 
             cleanup(evaluatedState);
             System.out.println("Inference Ended");
+        } catch (NullPointerException e) {
+            System.err.println("Null pointer exception at islandsSlaveInference");
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
