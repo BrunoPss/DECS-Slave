@@ -6,10 +6,7 @@ import com.shared.SystemInformation;
 import com.slave.application.engines.EvolutionEngine;
 import com.slave.application.utils.constants.FilePathConstants;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.rmi.RemoteException;
@@ -56,58 +53,77 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
 
     @Override
     public boolean setupProblemEnvironment(ArrayList<JobFile> jobFiles, String problemCode, String distribution) {
-        this.problemCode = problemCode;
-        this.distribution = distribution;
+        try {
+            this.problemCode = problemCode;
+            this.distribution = distribution;
 
-        // Create Problem Folder
-        String problemDir = FilePathConstants.PROBLEM_PARAMS_FOLDER + problemCode;
-        File problemFolder = new File(problemDir);
-        problemFolder.mkdir();
+            // Create Problem Folder
+            String problemDir = FilePathConstants.PROBLEM_PARAMS_FOLDER + problemCode;
+            File problemFolder = new File(problemDir);
+            problemFolder.mkdir();
 
-        // Create Problem Files
-        for (JobFile jobFile : jobFiles) {
-            try {
-                FileOutputStream fileOut = new FileOutputStream(problemDir + "/" + jobFile.getName());
-                fileOut.write(jobFile.getFileBytes());
-                fileOut.close();
-                System.out.println(jobFile.getName() + " file successfully created");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("IO Exception while writing " + jobFile.getName() + " file");
-                return false;
+            // Create Problem Files
+            for (JobFile jobFile : jobFiles) {
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(problemDir + "/" + jobFile.getName());
+                    fileOut.write(jobFile.getFileBytes());
+                    fileOut.close();
+                    System.out.println(jobFile.getName() + " file successfully created");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("IO Exception while writing " + jobFile.getName() + " file");
+                    return false;
+                }
             }
-        }
 
-        if (distribution.equals("DIST_EVAL")) {
-            // Create Slave params Files
-            String slaveParamsText = "parent.0 = slave.params" + System.lineSeparator() +
-                    "parent.1 = " + problemCode + ".params";
-            File slaveParamsFile = new File(problemDir + "/" + problemCode + "Slave.params");
-            FileWriter fWriter;
-            try {
-                fWriter = new FileWriter(slaveParamsFile);
-                fWriter.write(slaveParamsText);
-                fWriter.close();
-                System.out.println("Successfully wrote the slave file");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("IO Exception");
+            if (distribution.equals("DIST_EVAL")) {
+                // Create Slave params Files
+                String slaveParamsText = "parent.0 = slave.params" + System.lineSeparator() +
+                        "parent.1 = " + problemCode + ".params";
+                File slaveParamsFile = new File(problemDir + "/" + problemCode + "Slave.params");
+                FileWriter fWriter;
+                try {
+                    fWriter = new FileWriter(slaveParamsFile);
+                    fWriter.write(slaveParamsText);
+                    fWriter.close();
+                    System.out.println("Successfully wrote the slave file");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("IO Exception");
+                }
+            } else if (distribution.equals("ISLANDS")) {
+
             }
-        }
-        else if (distribution.equals("ISLANDS")) {
 
+            return true;
+        } catch (SecurityException e) {
+            System.err.println("Security Exception at setupProblemEnvironment");
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.err.println("Null pointer exception at setupProblemEnvironment");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception at setupProblemEnvironment");
+            e.printStackTrace();
         }
-
-        return true;
+        return false;
     }
 
     @Override
     public boolean startInference(String problemCode) {
-        System.out.println("Start Inference");
-        System.out.println("PROBLEM CODE: " + problemCode);
-        EvolutionEngine evolutionEngine = new EvolutionEngine(this.problemCode, distribution, problemCode, slaveAddress);
-        evolutionEngine.start();
-        return true;
+        try {
+            System.out.println("Start Inference");
+            System.out.println("PROBLEM CODE: " + problemCode);
+            EvolutionEngine evolutionEngine = new EvolutionEngine(this.problemCode, distribution, problemCode, slaveAddress);
+            evolutionEngine.start();
+            return true;
+        } catch (IllegalThreadStateException e) {
+            System.err.println("Illegal thread state exception at startInference");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception at startInference");
+        }
+        return false;
     }
 
     @Override
