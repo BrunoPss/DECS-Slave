@@ -1,7 +1,7 @@
 package com.slave.application.services;
 
-import com.shared.SlaveInfo;
-import com.shared.SlaveService;
+import com.slave.shared.SlaveInfo;
+import com.slave.shared.SlaveService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
