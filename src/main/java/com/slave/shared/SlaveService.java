@@ -1,4 +1,4 @@
-package com.shared;
+package com.slave.shared;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
