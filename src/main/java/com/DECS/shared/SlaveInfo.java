@@ -1,4 +1,4 @@
-package com.slave.shared;
+package com.decs.shared;
 
 import java.io.Serializable;
 

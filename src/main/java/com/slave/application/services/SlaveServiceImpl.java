@@ -1,8 +1,8 @@
 package com.slave.application.services;
 
-import com.slave.shared.JobFile;
-import com.slave.shared.SlaveService;
-import com.slave.shared.SystemInformation;
+import com.decs.shared.JobFile;
+import com.decs.shared.SlaveService;
+import com.decs.shared.SystemInformation;
 import com.slave.application.engines.EvolutionEngine;
 import com.slave.application.utils.constants.FilePathConstants;
 
