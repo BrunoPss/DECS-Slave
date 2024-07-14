@@ -10,6 +10,14 @@ import java.io.File;
 
 import static ec.Evolve.cleanup;
 
+/**
+ * <b>Evolution Engine Class</b>
+ * <p>
+ *     This class implements the evolution engine for DECS-Slave instances.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class EvolutionEngine extends Thread {
     //Internal Data
     private String problemCode;
@@ -18,7 +26,13 @@ public class EvolutionEngine extends Thread {
     private String slaveAddress;
 
 
-    //Constructor
+    /**
+     * Class Constructor
+     * @param problemCode Problem short code
+     * @param distribution Problem distribution method
+     * @param islandCode Island short code
+     * @param slaveAddress DECS-Slave instance network address (IP)
+     */
     public EvolutionEngine(String problemCode, String distribution, String islandCode, String slaveAddress) {
         this.problemCode = problemCode;
         this.distribution = distribution;
@@ -47,6 +61,9 @@ public class EvolutionEngine extends Thread {
 
 
     //Internal Functions
+    /**
+     * Starts the inference of a distributed evaluation problem
+     */
     private void distEvalSlaveInference() {
         try {
             File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + this.problemCode + "/" + this.problemCode + "Slave.params");
@@ -64,6 +81,9 @@ public class EvolutionEngine extends Thread {
         }
     }
 
+    /**
+     * Starts the inference of a island model distribution problem
+     */
     private void islandsSlaveInference() {
         try {
             File paramsFile = new File(FilePathConstants.PROBLEM_PARAMS_FOLDER + this.problemCode + "/" + this.islandCode + ".params");

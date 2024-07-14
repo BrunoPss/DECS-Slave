@@ -7,18 +7,37 @@ import com.slave.application.services.SlaveServiceManager;
 
 import java.rmi.RemoteException;
 
+/**
+ * <b>Slave Class</b>
+ * <p>
+ *     This class represents the Slave entity and serves as the node's initial point.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class Slave extends SlaveServiceImpl {
     //Internal Data
     private SlaveServiceManager slaveServiceManager;
     private TerminalGUI terminalGUI;
 
-    //Constructor
+    /**
+     * Class Constructor
+     * @param slaveAddress Slave network address (IP)
+     * @throws RemoteException If the slave instance cannot be reached or any communication error
+     * is raised.
+     */
     public Slave(String slaveAddress) throws RemoteException {
         super(slaveAddress);
         slaveServiceManager = new SlaveServiceManager();
         terminalGUI = new TerminalGUI(slaveServiceManager);
     }
 
+    /**
+     * Main Method of the Java application
+     * @param args Command line arguments
+     * @throws RemoteException If the slave instance cannot be reached or any communication error
+     * is raised.
+     */
     public static void main(String[] args) throws RemoteException {
         if (args.length > 0) {
             Slave slave = new Slave(args[0]);
@@ -63,9 +82,21 @@ public class Slave extends SlaveServiceImpl {
 
 
     //Internal Functions
+
+    /**
+     * Starts the slave service
+     * @param localAddress Slave network address (IP)
+     * @param localPort Slave network port
+     * @param coordinatorAddress Coordinator network address (IP)
+     * @param coordinatorPort Coordinator network port
+     */
     private void startService(String localAddress, int localPort, String coordinatorAddress, int coordinatorPort) {
         slaveServiceManager.startService(localAddress, localPort, TextContent.SLAVE_DEFAULT_ID, coordinatorAddress, coordinatorPort);
     }
+
+    /**
+     * Displays the graphical user interface
+     */
     private void startGUI() {
         // Show Initial GUI Menu
         terminalGUI.showStartMenu();

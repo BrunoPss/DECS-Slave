@@ -1,6 +1,19 @@
 package com.slave.application.gui;
 
+/**
+ * <b>Text Content Class</b>
+ * <p>
+ *     This class contains all GUI textual content.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class TextContent {
+    /**
+     * Class Private Constructor
+     * <p>This class cannot be instantiated.</p>
+     */
+    private TextContent() {}
     public static final String TERMINAL_INPUT_SYMBOL = "> ";
     public static final String SLAVE_DEFAULT_ID = "DECS_Slave";
     public static String IP_ADDRESS_TEXT(String content) {
