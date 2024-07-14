@@ -11,6 +11,14 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+/**
+ * <b>Slave Service Manager Class</b>
+ * <p>
+ *     This class manages the service provided by the slave instance.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class SlaveServiceManager {
     //Internal Data
     private SlaveInfo slaveInfo;
@@ -18,10 +26,10 @@ public class SlaveServiceManager {
     private int coordinatorPort;
     private String slaveAddress;
 
-    //Constructor
-    public SlaveServiceManager() {
-
-    }
+    /**
+     * Class Default Constructor
+     */
+    public SlaveServiceManager() {}
 
     //Get Methods
 
@@ -30,6 +38,14 @@ public class SlaveServiceManager {
 
 
     //Methods
+    /**
+     * Starts the slave service
+     * @param slaveAddress Slave network address (IP)
+     * @param slavePort Slave network port
+     * @param slaveID Slave short identification
+     * @param coordinatorAddress Coordinator network address (IP)
+     * @param coordinatorPort Coordinator network port
+     */
     public void startService(String slaveAddress, int slavePort, String slaveID, String coordinatorAddress, int coordinatorPort) {
         this.coordinatorAddress = coordinatorAddress;
         this.coordinatorPort = coordinatorPort;
@@ -50,6 +66,10 @@ public class SlaveServiceManager {
 
 
     //Internal Functions
+
+    /**
+     * Creates a remote method invocation registry (RMI registry)
+     */
     private void createRegistry() {
         try {
             System.out.println(slaveInfo.getAddress() + " " + slaveInfo.getPort());
@@ -65,6 +85,9 @@ public class SlaveServiceManager {
         }
     }
 
+    /**
+     * Binds the remote interface with the RMI registry
+     */
     private void bindRemoteInterface() {
         try {
             SlaveService slaveService = new SlaveServiceImpl(slaveAddress);
@@ -82,6 +105,9 @@ public class SlaveServiceManager {
         }
     }
 
+    /**
+     * Initiates the registration process in the coordinator service
+     */
     private void connect2Coordinator() {
         try {
             DatagramSocket socket = new DatagramSocket();

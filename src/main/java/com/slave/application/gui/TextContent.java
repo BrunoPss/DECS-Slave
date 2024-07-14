@@ -1,6 +1,19 @@
 package com.slave.application.gui;
 
+/**
+ * <b>Text Content Class</b>
+ * <p>
+ *     This class contains all GUI textual content.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class TextContent {
+    /**
+     * Class Private Constructor
+     * <p>This class cannot be instantiated.</p>
+     */
+    private TextContent() {}
     public static final String TERMINAL_INPUT_SYMBOL = "> ";
     public static final String SLAVE_DEFAULT_ID = "DECS_Slave";
     public static String IP_ADDRESS_TEXT(String content) {
@@ -43,9 +56,8 @@ public class TextContent {
             DECS-Slave
             Start Menu
             1) Connect to the Coordinator
-            2) Change Configurations
-            3) Help
-            4) About
+            2) Help
+            3) About
             Please select one option to continue...
             %s""", TERMINAL_INPUT_SYMBOL
             );
@@ -61,4 +73,22 @@ public class TextContent {
                     Please select one option to continue...
                     %s""", TERMINAL_INPUT_SYMBOL
             );
+    public static final String HELP_PAGE_TEXT =
+            """
+            Each DECS-Slave instance should be executed only after a DECS instance is running to ensure a successful
+            registration process.
+            If DECS does not automatically recognize a new instance of DECS-Slave, restart the process.
+            Make sure that all participant computers are connected in a local network and can communicate.
+            If the registration process keeps failing, double check your network configurations for blocked communications.
+            """;
+    public static final String ABOUT_PAGE_TEXT =
+            """
+            The Distributed Evolutionary Computing System (DECS) is a solid platform developed by Bruno Guiomar,
+            that aims to achieve easy user interaction while building a solid distributed processing transparency
+            that simplifies the backend process of task distribution. By using ECJ as its evolutionary engine,
+            DECS supports multiple types of evolutionary algorithms, distribution models, and configurations.
+            While aiming for adaptability, the system can adapt itself to handle multiple processing nodes in
+            the form of DECS-Slave instances and effectively distribute tasks in order to reach high efficiency.
+            This software is licenced under the GPL-2.0 license.
+            """;
 }

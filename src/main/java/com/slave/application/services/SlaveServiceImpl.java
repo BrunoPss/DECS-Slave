@@ -13,6 +13,14 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+/**
+ * <b>Slave Service Implementation</b>
+ * <p>
+ *     This class implements the remote interface methods.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveService {
     //Internal Data
     private String distribution;
@@ -20,7 +28,12 @@ public class SlaveServiceImpl extends UnicastRemoteObject implements SlaveServic
     private OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
     private String slaveAddress;
 
-    //Constructor
+    /**
+     * Class Constructor
+     * @param slaveAddress Slave network address (IP)
+     * @throws RemoteException If the slave instance cannot be reached or any communication error
+     * is raised.
+     */
     public SlaveServiceImpl(String slaveAddress) throws RemoteException {
         this.slaveAddress = slaveAddress;
     }

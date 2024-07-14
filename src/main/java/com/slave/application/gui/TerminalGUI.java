@@ -5,6 +5,14 @@ import com.slave.application.services.SlaveServiceManager;
 import javax.swing.*;
 import java.util.Scanner;
 
+/**
+ * <b>Terminal Graphical User Interface Class</b>
+ * <p>
+ *     This class implements the simple user interface running in a terminal environment.
+ * </p>
+ * @author Bruno Guiomar
+ * @version 1.0
+ */
 public class TerminalGUI {
     //Internal Data
     private Scanner scanner;
@@ -15,7 +23,10 @@ public class TerminalGUI {
     private String coordinatorAddress;
     private int coordinatorPort;
 
-    //Constructor
+    /**
+     * Class Constructor
+     * @param slaveServiceManager Slave service manager instance
+     */
     public TerminalGUI(SlaveServiceManager slaveServiceManager) {
         this.scanner = new Scanner(System.in);
         this.slaveServiceManager = slaveServiceManager;
@@ -28,6 +39,10 @@ public class TerminalGUI {
 
 
     //Methods
+
+    /**
+     * Displays the start menu graphics
+     */
     public void showStartMenu() {
         try {
             String[] values;
@@ -45,12 +60,15 @@ public class TerminalGUI {
             showIDInput();
 
             // Main Menu
-            int option = showMenu(TextContent.MAIN_MENU_TEXT, 3);
-            switch (option) {
-                case 1 -> connectCoordinator();
-                case 2 -> showHelpMenu();
-                case 3 -> showAboutMenu();
-            }
+            int option;
+            do {
+                option = showMenu(TextContent.MAIN_MENU_TEXT, 3);
+                switch (option) {
+                    case 1 -> connectCoordinator();
+                    case 2 -> showHelpMenu();
+                    case 3 -> showAboutMenu();
+                }
+            } while (option != 1);
         } catch (NumberFormatException e) {
             System.err.println("Number format exception at showStartMenu");
             e.printStackTrace();
@@ -64,16 +82,32 @@ public class TerminalGUI {
 
 
     //Internal Functions
+    /**
+     * Initiates the registration process in the coordinator
+     */
     private void connectCoordinator() {
         slaveServiceManager.startService(localAddress, localPort, slaveID, coordinatorAddress, coordinatorPort);
     }
+
+    /**
+     * Displays the help menu graphics
+     */
     private void showHelpMenu() {
-
+        System.out.println(TextContent.HELP_PAGE_TEXT);
     }
+
+    /**
+     * Displays the about menu graphics
+     */
     private void showAboutMenu() {
-
+        System.out.println(TextContent.ABOUT_PAGE_TEXT);
     }
 
+    /**
+     * Displays the network address input graphics
+     * @param agent Agent which the address belongs
+     * @return Agent address in the form of {ip_address, port}
+     */
     private String[] showAddressInput(String agent) {
         try {
             boolean repeat;
@@ -111,6 +145,10 @@ public class TerminalGUI {
             return new String[]{"127.0.0.1", "9999"};
         }
     }
+
+    /**
+     * Shows the identification input graphics
+     */
     private void showIDInput() {
         try {
             System.out.print(TextContent.SLAVE_ID_SET_TEXT);
@@ -125,6 +163,13 @@ public class TerminalGUI {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Shows the actions menu graphics
+     * @param content Menu textual content
+     * @param limit max input value
+     * @return Selected option
+     */
     private int showMenu(String content, int limit) {
         try {
             boolean repeat;
