@@ -1,0 +1,6 @@
+com.decs.shared
+com.slave.application
+com.slave.application.engines
+com.slave.application.gui
+com.slave.application.services
+com.slave.application.utils.constants
