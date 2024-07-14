@@ -20,28 +20,33 @@ public class Slave extends SlaveServiceImpl {
     }
 
     public static void main(String[] args) throws RemoteException {
-        Slave slave = new Slave(args[0]);
-        // There are two ways of starting the Slave
-        // Direct -> Provide 4 arguments <local-address> <local-port> <coordinator-address> <coordinator-port>
-        // Assisted -> Provide no arguments
-        if (args.length == 4) {
-            String addressVerifyRegex = "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$";
-            try {
-                if (!args[0].matches(addressVerifyRegex)) {
-                    throw new Exception("Invalid IP Address");
+        if (args.length > 0) {
+            Slave slave = new Slave(args[0]);
+            // There are two ways of starting the Slave
+            // Direct -> Provide 4 arguments <local-address> <local-port> <coordinator-address> <coordinator-port>
+            // Assisted -> Provide no arguments
+            if (args.length == 4) {
+                String addressVerifyRegex = "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$";
+                try {
+                    if (!args[0].matches(addressVerifyRegex)) {
+                        throw new Exception("Invalid IP Address");
+                    }
+                    slave.startService(args[0], Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
+                } catch (NumberFormatException e) {
+                    System.err.println("Wrong argument format");
+                    System.err.println("Port values probably in the wrong format (must be numbers)");
+                    System.exit(1);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    System.exit(1);
                 }
-                slave.startService(args[0], Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
-            } catch (NumberFormatException e) {
-                System.err.println("Wrong argument format");
-                System.err.println("Port values probably in the wrong format (must be numbers)");
-                System.exit(1);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
+            } else {
+                slave.startGUI();
             }
-        }
-        else {
-            slave.startGUI();
+        } else {
+            System.err.println("Argument missing!");
+            System.err.println("java Slave <local-address>");
+            System.exit(1);
         }
     }
 

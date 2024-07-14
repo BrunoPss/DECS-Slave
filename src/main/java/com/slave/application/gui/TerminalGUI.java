@@ -45,12 +45,15 @@ public class TerminalGUI {
             showIDInput();
 
             // Main Menu
-            int option = showMenu(TextContent.MAIN_MENU_TEXT, 3);
-            switch (option) {
-                case 1 -> connectCoordinator();
-                case 2 -> showHelpMenu();
-                case 3 -> showAboutMenu();
-            }
+            int option;
+            do {
+                option = showMenu(TextContent.MAIN_MENU_TEXT, 3);
+                switch (option) {
+                    case 1 -> connectCoordinator();
+                    case 2 -> showHelpMenu();
+                    case 3 -> showAboutMenu();
+                }
+            } while (option != 1);
         } catch (NumberFormatException e) {
             System.err.println("Number format exception at showStartMenu");
             e.printStackTrace();
@@ -68,10 +71,10 @@ public class TerminalGUI {
         slaveServiceManager.startService(localAddress, localPort, slaveID, coordinatorAddress, coordinatorPort);
     }
     private void showHelpMenu() {
-
+        System.out.println(TextContent.HELP_PAGE_TEXT);
     }
     private void showAboutMenu() {
-
+        System.out.println(TextContent.ABOUT_PAGE_TEXT);
     }
 
     private String[] showAddressInput(String agent) {
