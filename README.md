@@ -25,3 +25,16 @@ of the DECS system. In order to use the assistant, you just need to run the foll
 
 After a successful connection with the Coordinator, this Slave can be accessed via the
 web interface.
+
+## Other Information
+### Author
+**Name:** Bruno Guiomar\
+**Email:** [Bruno.guiomar33@gmail.com](mailto:bruno.guiomar33@gmail.com?subject=DECS%20Inquire)\
+**GitHub:** [BrunoPss](https://github.com/BrunoPss)
+
+### Repository
+[**DECS**](https://github.com/BrunoPss/DECS)\
+[**DECS-Slave**](https://github.com/BrunoPss/DECS-Slave)
+
+### Licence
+This software is licensed under the GPL-2.0 License.

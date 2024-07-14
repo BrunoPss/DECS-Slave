@@ -89,5 +89,6 @@ public class TextContent {
             DECS supports multiple types of evolutionary algorithms, distribution models, and configurations.
             While aiming for adaptability, the system can adapt itself to handle multiple processing nodes in
             the form of DECS-Slave instances and effectively distribute tasks in order to reach high efficiency.
+            This software is licenced under the GPL-2.0 license.
             """;
 }
