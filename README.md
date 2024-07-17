@@ -1,7 +1,6 @@
 # DECS-Slave
 
-DECS-Slave is a component of the Distributed Evolutionary Computing System developed by Bruno Guiomar
-for his bachelor's degree thesis.\
+DECS-Slave is a component of the Distributed Evolutionary Computing System developed by Bruno Guiomar for his degree thesis.\
 This system follows a Coordinator - Slave architecture where there is one Coordinator
 in the network and multiple Slaves that process the tasks delegated by the coordinator.\
 This repository only contains the source code for the system Slave.\
